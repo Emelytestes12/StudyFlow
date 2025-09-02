@@ -1,0 +1,264 @@
+<!DOCTYPE html> 
+<!-- Informa ao navegador que esse arquivo é um documento HTML5 -->
+
+<html lang="pt-br">
+<!-- Início do documento HTML, definido como português do Brasil -->
+
+<head>
+  <meta charset="UTF-8">
+  <!-- Define o conjunto de caracteres para UTF-8 (aceita acentos, cedilha etc.) -->
+
+  <title>StudyFlow</title>
+  <!-- Título da aba do navegador -->
+
+  <style>
+    /* Aqui começa o CSS (responsável pelo estilo da página) */
+
+    body { 
+      font-family: Arial, sans-serif; /* Define a fonte do texto */
+      margin: 0; /* Remove margens padrão do navegador */
+      display: flex; /* Coloca os elementos (menu + conteúdo) lado a lado */
+    }
+
+    /* MENU LATERAL (sidebar) */
+    .sidebar { 
+      width: 200px; /* Largura fixa */
+      background: #282947; /* Cor de fundo */
+      color: white; /* Cor do texto */
+      height: 100vh; /* Altura da tela inteira */
+      padding: 20px; /* Espaçamento interno */
+    }
+
+    .sidebar button {
+      display: block; /* Cada botão ocupa uma linha inteira */
+      width: 100%; /* Botões ocupam toda a largura */
+      margin: 10px 0; /* Espaço entre os botões */
+      padding: 10px; /* Espaço dentro do botão */
+      cursor: pointer; /* Mostra a mãozinha ao passar o mouse */
+    }
+
+    /* ÁREA PRINCIPAL (conteúdo) */
+    .content {
+      flex: 1; /* Ocupa o resto da tela (do lado do menu) */
+      padding: 20px; /* Espaçamento interno */
+      background-image: url('fundo.jpg'); /* Imagem de fundo */
+      background-size: cover; /* Faz a imagem cobrir toda a tela */
+      background-position: center; /* Centraliza a imagem */
+      background-repeat: no-repeat; /* Evita repetição da imagem */
+    }
+
+    /* COR DOS TÍTULOS */
+    .content h2 {
+      color: #ffffff; /* Cor branca */
+    }
+
+    /* Esconde seções que não estão sendo exibidas */
+    .hidden { display: none; }
+
+    /* Caixa onde ficam as seções (to-do, pomodoro, notas, progresso) */
+    .section {
+      margin-bottom: 20px; /* Espaço abaixo */
+      background: rgba(172, 171, 238, 0.8); /* Fundo transparente lilás */
+      padding: 15px; /* Espaço interno */
+      border-radius: 8px; /* Bordas arredondadas */
+    }
+
+    ul { list-style-type: none; padding: 0; } /* Remove bolinhas da lista */
+    li { margin: 5px 0; } /* Espaço entre itens */
+
+    button {
+      background: #6d6fb3; /* Cor padrão */
+      color: rgb(255, 255, 255); /* Texto branco */
+      border: none; /* Sem borda */
+      border-radius: 4px; /* Bordas arredondadas */
+    }
+
+    button:hover { background: #3a3b5c; } /* Cor ao passar o mouse */
+
+    input[type="text"], textarea {
+      width: 100%; /* Ocupa toda a largura */
+      padding: 8px; /* Espaço interno */
+      margin-top: 5px; /* Espaço acima */
+      border-radius: 4px; /* Bordas arredondadas */
+      border: 1px solid #a363c9; /* Bordas coloridas */
+    }
+
+    /* Estilo do timer do Pomodoro */
+    #timer {
+      font-size: 48px; /* Texto grande */
+      text-align: center; /* Centralizado */
+      margin: 20px 0; /* Espaço acima e abaixo */
+      color: #ffffff; /* Texto branco */
+      font-weight: bold; /* Negrito */
+      text-shadow: 2px 2px 4px rgba(247, 16, 16, 0.3); /* Sombra no texto */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- CORPO DA PÁGINA -->
+
+  <!-- MENU LATERAL -->
+  <div class="sidebar">
+    <h2>StudyFlow</h2>
+    <!-- Botões do menu para trocar entre seções -->
+    <button onclick="showSection('todo')">To-Do List</button>
+    <button onclick="showSection('pomodoro')">Pomodoro</button>
+    <button onclick="showSection('notes')">Notas</button>
+    <button onclick="showSection('progress')">Progresso</button>
+  </div>
+
+  <!-- ÁREA PRINCIPAL DE CONTEÚDO -->
+  <div class="content">
+
+    <!-- SEÇÃO TO-DO LIST -->
+    <div id="todo" class="section hidden">
+      <h2>To-Do List</h2>
+      <input id="taskInput" placeholder="Digite uma tarefa">
+      <button onclick="addTask()">Adicionar</button>
+      <ul id="taskList"></ul>
+    </div>
+
+    <!-- SEÇÃO POMODORO -->
+    <div id="pomodoro" class="section hidden">
+      <h2>Timer Pomodoro</h2>
+      <p id="timer">25:00</p>
+      <button onclick="startTimer()">Iniciar</button>
+      <button onclick="pauseTimer()">Pausar</button>
+      <button onclick="resetTimer()">Resetar</button>
+    </div>
+
+    <!-- SEÇÃO NOTAS -->
+    <div id="notes" class="section hidden">
+      <h2>Notas rápidas</h2>
+      <textarea id="noteArea" rows="8" cols="40"></textarea>
+      <button onclick="saveNote()">Salvar</button>
+    </div>
+
+    <!-- SEÇÃO PROGRESSO -->
+    <div id="progress" class="section hidden">
+      <h2>Quadro de Progresso</h2>
+      <p id="progressText">Nenhuma tarefa concluída ainda.</p>
+    </div>
+  </div>
+
+<script>
+  /* =====================
+     JAVASCRIPT DA PÁGINA
+     ===================== */
+
+  // FUNÇÃO: mostra apenas a seção escolhida e esconde as outras
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(sec => sec.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+  }
+
+  /* =====================
+     TO-DO LIST
+     ===================== */
+  let tasks = JSON.parse(localStorage.getItem('tasks')) || []; 
+  // Carrega tarefas salvas no navegador (ou cria lista vazia)
+
+  // Função que desenha as tarefas na tela
+  function renderTasks() {
+    let list = document.getElementById('taskList');
+    list.innerHTML = ""; // Limpa lista antes de desenhar
+    tasks.forEach((t, i) => {
+      // Para cada tarefa, cria um item <li> com checkbox e botão "X"
+      list.innerHTML += `<li>
+        <input type="checkbox" ${t.done ? "checked" : ""} onclick="toggleTask(${i})">
+        ${t.text} <button onclick="deleteTask(${i})">X</button>
+      </li>`;
+    });
+    updateProgress(); // Atualiza progresso
+    localStorage.setItem('tasks', JSON.stringify(tasks)); // Salva no navegador
+  }
+
+  // Adiciona nova tarefa
+  function addTask() {
+    let input = document.getElementById('taskInput');
+    if(input.value.trim() !== "") {
+      tasks.push({ text: input.value, done: false }); // Cria objeto da tarefa
+      input.value = ""; // Limpa campo
+      renderTasks(); // Atualiza lista
+    }
+  }
+
+  // Marca/desmarca tarefa
+  function toggleTask(i) { 
+    tasks[i].done = !tasks[i].done; 
+    renderTasks(); 
+  }
+
+  // Deleta tarefa
+  function deleteTask(i) { 
+    tasks.splice(i, 1); 
+    renderTasks(); 
+  }
+
+  renderTasks(); // Desenha lista ao abrir a página
+
+  /* =====================
+     TIMER POMODORO
+     ===================== */
+  let time = 25*60, timerInterval, running = false; 
+  // "time" começa em 25 minutos (em segundos)
+
+  // Atualiza o texto do timer
+  function updateTimer() {
+    let min = Math.floor(time/60), sec = time%60;
+    document.getElementById("timer").innerText = `${min}:${sec<10?"0":""}${sec}`;
+  }
+
+  // Inicia o timer
+  function startTimer() {
+    if(!running){
+      running = true;
+      timerInterval = setInterval(()=>{
+        if(time > 0){ time--; updateTimer(); }
+      }, 1000); // Executa a cada 1 segundo
+    }
+  }
+
+  // Pausa o timer
+  function pauseTimer(){ 
+    clearInterval(timerInterval); 
+    running = false; 
+  }
+
+  // Reseta o timer
+  function resetTimer(){ 
+    clearInterval(timerInterval); 
+    time = 25*60; 
+    updateTimer(); 
+    running = false; 
+  }
+
+  updateTimer(); // Mostra o tempo inicial (25:00)
+
+  /* =====================
+     NOTAS RÁPIDAS
+     ===================== */
+  let noteArea = document.getElementById("noteArea");
+  noteArea.value = localStorage.getItem("note") || ""; 
+  // Carrega nota salva do navegador
+
+  // Salva a nota
+  function saveNote(){ 
+    localStorage.setItem("note", noteArea.value); 
+    alert("Nota salva!"); 
+  }
+
+  /* =====================
+     PROGRESSO
+     ===================== */
+  function updateProgress() {
+    let done = tasks.filter(t=>t.done).length; // Quantas concluídas
+    let total = tasks.length; // Total de tarefas
+    document.getElementById("progressText").innerText =
+      total === 0 ? "Nenhuma tarefa adicionada." : `Você concluiu ${done} de ${total} tarefas.`;
+  }
+</script>
+
+</body>
+</html>
