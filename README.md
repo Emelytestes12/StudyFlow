@@ -8,4 +8,4 @@ Acesse: https://prototipoinicial.netlify.app/
 
 Site que criei para ajudar na decisão da estrutura do projeto:
 
-Acesse: https://paraplanejarmos.netlify.app/
+Acesse: https://planejamentoprojetosite.netlify.app/
