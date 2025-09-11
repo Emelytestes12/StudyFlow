@@ -2,6 +2,12 @@
 👉 Acesse: https://prototipoinicial.netlify.app/
 
 ---
+## Estrurura básica do site 👉
+
+<img width="1024" height="768" alt="Orange Modern Organizational Chart Graph" src="https://github.com/user-attachments/assets/cf05710e-5854-48e4-a49a-a4e2ce8566b3" />
+
+
+---
 
 ###  🚀 Versão-01 do Site Study Flow 
 👉 Acesse: https://versao01-studyflow.netlify.app/
