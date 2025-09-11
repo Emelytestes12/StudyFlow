@@ -1,14 +1,37 @@
-# StudyFlow
-
-Protótipo Inicial para o Site: 
-<img width="1289" height="547" alt="image" src="https://github.com/user-attachments/assets/b8ebef09-4dc1-4f93-a02c-c0a7fa133f1a" />
-
-Acesse: https://prototipoinicial.netlify.app/
+### 🔗 Protótipo Inicial
+👉 Acesse: https://prototipoinicial.netlify.app/
 
 ---
 
-Site que criei para ajudar na decisão da estrutura do projeto:
-<img width="1299" height="562" alt="image" src="https://github.com/user-attachments/assets/334cd783-36b4-4f94-8a62-5d00b936230f" />
+###  🚀 Versão-01 do Site Study Flow 
+👉 Acesse: https://versao01-studyflow.netlify.app/
 
 
-Acesse: https://planejamentoprojetosite.netlify.app/
+#### Estrutura:
+<img width="296" height="216" alt="image" src="https://github.com/user-attachments/assets/82a54aef-eb6e-47ae-ac77-cd68cb8ed599" />
+
+### 📌 Próximos Passos
+#### ✅ Adcionar na página de login: 
+1- Um cadastre-se;
+
+2- Um redefinir senhar por e-mail (Opcional);
+
+3- Um banco simples para quardar cadastro e dados de usuário.
+
+#### ✅ Adcionar na página de assinatura:
+1- Uma mensagem de boas vindas (Opcional);
+
+2- Valor do Plano Premiun.
+
+#### ✅ Adcionar na página do Study Flow:
+1- Mudar o menu para emcima ou em baixo (Opcional).
+
+### ✅ Sobre o Designer:
+1- Escolher cores para o site ou :
+
+1.2- Aplicar designer de acordo com a logo;
+
+2- Mudar cor de fundo da logo (Opcional).
+
+#### ✅ Aplicações finais:
+1- Designer Responsivo (Obrigatório);
