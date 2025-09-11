@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>StudyFlow</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- MENU LATERAL -->
+  <div class="sidebar">
+    <h2>StudyFlow</h2>
+    <!-- Botões do menu para trocar entre seções -->
+    <button onclick="showSection('todo')">To-Do List</button>
+    <button onclick="showSection('pomodoro')">Pomodoro</button>
+    <button onclick="showSection('notes')">Notas</button>
+    <button onclick="showSection('progress')">Progresso</button>
+    <!--Volta para pagina de login-->
+    <button onclick="window.location.href='../index.html'">Sair</button>
+  </div>
+
+  <!-- ÁREA PRINCIPAL DE CONTEÚDO -->
+  <div class="content">
+
+    <!-- SEÇÃO TO-DO LIST -->
+    <div id="todo" class="section hidden">
+      <h2>To-Do List</h2>
+      <input id="taskInput" placeholder="Digite uma tarefa">
+      <button onclick="addTask()">Adicionar</button>
+      <ul id="taskList"></ul>
+    </div>
+
+    <!-- SEÇÃO POMODORO -->
+    <div id="pomodoro" class="section hidden">
+      <h2>Timer Pomodoro</h2>
+      <p id="timer">25:00</p>
+      <button onclick="startTimer()">Iniciar</button>
+      <button onclick="pauseTimer()">Pausar</button>
+      <button onclick="resetTimer()">Resetar</button>
+    </div>
+
+    <!-- SEÇÃO NOTAS -->
+    <div id="notes" class="section hidden">
+      <h2>Notas rápidas</h2>
+      <textarea id="noteArea" rows="8" cols="40"></textarea>
+      <button onclick="saveNote()">Salvar</button>
+    </div>
+
+    <!-- SEÇÃO PROGRESSO -->
+    <div id="progress" class="section hidden">
+      <h2>Quadro de Progresso</h2>
+      <p id="progressText">Nenhuma tarefa concluída ainda.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Study Flow</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #060730, #ffffff);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-container {
+      width: 350px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+      backdrop-filter: blur(6px);
+      text-align: center;
+      color: #fff;
+    }
+
+    .login-container h1 {
+      margin-bottom: 20px;
+      color: #fff;
+      font-size: 26px;
+    }
+
+    .login-container label {
+      display: block;
+      margin: 10px 0 5px;
+      font-size: 14px;
+      text-align: left;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .login-container input:focus {
+      border: 2px solid #a363c9;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      background: #595ba0;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .login-container button:hover {
+      background: #282944;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Login - Study Flow</h1>
+
+    <form action="assinatura.html" method="get">
+      <label for="usuario">Usuário:</label>
+      <input type="text" id="usuario" name="usuario" required>
+
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" name="senha" required>
+
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+</body>
+</html>
